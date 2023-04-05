@@ -3,7 +3,7 @@ from django.db import models
 
 class Question(models.Model):
     question_text = models.CharField(max_length=200, verbose_name='Вопрос')
-    pub_date = models.DateTimeField(verbose_name='Дата_публикации')
+    pub_date = models.DateTimeField(auto_now=True, verbose_name='Дата публикации')
 
     def __str__(self):
         return f'Order {self.id}'

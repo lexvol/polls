@@ -19,5 +19,5 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('wheel/', include('balanceWheel.urls')),
+    path('wheel/', include('balanceWheel.urls', namespace='wheel')),
 ]
