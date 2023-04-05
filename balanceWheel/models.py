@@ -6,7 +6,7 @@ class Question(models.Model):
     pub_date = models.DateTimeField(auto_now=True, verbose_name='Дата публикации')
 
     def __str__(self):
-        return f'Order {self.id}'
+        return self.question_text
 
     class Meta:
         verbose_name = 'вопрос'
@@ -19,7 +19,7 @@ class Choice(models.Model):
     votes = models.IntegerField(default=0, verbose_name='Выбор')
 
     def __str__(self):
-        return f'Order {self.id}'
+        return self.choice_text
 
     class Meta:
         verbose_name = 'выбор'
