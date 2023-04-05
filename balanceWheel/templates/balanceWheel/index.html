@@ -1,3 +1,7 @@
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'balanceWheel/style.css' %}">
+
 {% if latest_question_list %}
     <ul>
     {% for question in latest_question_list %}
@@ -5,5 +9,5 @@
     {% endfor %}
     </ul>
 {% else %}
-    <p>No polls are available.</p>
+    <p>Нет доступных опросов.</p>
 {% endif %}
