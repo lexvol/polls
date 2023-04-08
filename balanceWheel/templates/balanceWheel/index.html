@@ -1,13 +1,14 @@
+{% extends "balanceWheel/base.html" %}
 {% load static %}
 
-<link rel="stylesheet" href="{% static 'balanceWheel/style.css' %}">
-
-{% if latest_question_list %}
-    <ul>
-    {% for question in latest_question_list %}
-        <li><a href="{% url 'wheel:detail' question.id %}">{{ question.question_text }}</a></li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>Нет доступных опросов.</p>
-{% endif %}
+{% block content %}
+    {% if latest_question_list %}
+        <ul>
+        {% for question in latest_question_list %}
+            <li><a href="{% url 'wheel:detail' question.id %}">{{ question.question_text }}</a></li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>Нет доступных опросов.</p>
+    {% endif %}
+{% endblock %}

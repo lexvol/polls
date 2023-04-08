@@ -18,7 +18,7 @@ class QuestionAdmin(admin.ModelAdmin):
 
 @admin.register(Choice)
 class ChoiceAdmin(admin.ModelAdmin):
-    list_display = ['id', 'question', 'choice_text', 'scores', 'votes']
+    list_display = ['id', 'question', 'choice_text', 'scores', 'vote']
 
 
 @admin.register(Category)

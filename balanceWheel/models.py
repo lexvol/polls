@@ -53,7 +53,7 @@ class Choice(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE, verbose_name='Вопрос')
     choice_text = models.CharField(max_length=200, verbose_name='Вариант ответа')
     scores = models.FloatField(default=0.0, verbose_name='Баллы')
-    votes = models.BooleanField(verbose_name='Ответ', choices=TRUE_FALSE_CHOICES)
+    vote = models.BooleanField(verbose_name='Ответ', default=False, choices=TRUE_FALSE_CHOICES)
 
     def __str__(self):
         return self.choice_text
