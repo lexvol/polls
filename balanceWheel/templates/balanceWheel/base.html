@@ -20,11 +20,10 @@
 <body>
     {% block scripts %}
     {% endblock scripts %}
-    <div style="margin: auto; width: 50%;">
-        <h3><a href="{% url 'wheel:index' %}" class="logo">BalanceWheel</a></h3>
+    <div>
+        <h3><a class="logo linkl-logo" href="{% url 'wheel:index' %}">BalanceWheel</a></h3>
         {% block content %}
-
         {% endblock content%}
     </div>
-        </body>
-        </html>
+</body>
+</html>

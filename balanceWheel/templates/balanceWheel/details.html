@@ -7,25 +7,22 @@
 {# Display a form #}
 <form action="{% url 'wheel:vote' question.id %}" method="post" class="form">
 {% csrf_token %}
-<div id="card" class="card">
-    <div id="card-header" class="card-header">
-        <h5>{{ question.question_text }}</h5>
-    </div>
-    <div class="card-body">
-        <fieldset>
-            {#<legend><h1></h1></legend>#}
-            {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+    <div class="wrapper">
+        <header>{{ question.question_text }}</header>
+        <div class="poll-area">
+            {% if error_message %}<p class="error"><strong>{{ error_message }}</strong></p>{% endif %}
             {% for choice in question.choice_set.all %}
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
-                  <label class="form-check-label" for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br>
-                </div>
+                <div>
+                    <span class="row">
+                    <span class="column">
+                        <input class="form-check-input" type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
+                        <label class="circle" for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label>
+                    </span>
+                </span>
+              </div>
             {% endfor %}
-        </fieldset>
+            <input type="submit" value="Далее" class="btn btn-primary">
+        </div>
     </div>
-    <div class="card-footer">
-        <input type="submit" value="Принять" class="btn btn-primary">
-    </div>
-</div>
 </form>
 {% endblock %}
