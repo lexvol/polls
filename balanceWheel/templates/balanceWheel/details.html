@@ -12,17 +12,36 @@
         <div class="poll-area">
             {% if error_message %}<p class="error"><strong>{{ error_message }}</strong></p>{% endif %}
             {% for choice in question.choice_set.all %}
-                <div>
-                    <span class="row">
-                    <span class="column">
-                        <input class="form-check-input" type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
-                        <label class="circle" for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label>
-                    </span>
-                </span>
-              </div>
+                <label for="choice{{ forloop.counter }}">
+                    <div class="row">
+                        <div class="column">
+                            <span>
+                                <input class="circle" type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
+                            </span>
+                            <span class="column">
+                                {{ choice.choice_text }}
+                            </span>
+                        </div>
+                    </div>
+                </label>
             {% endfor %}
             <input type="submit" value="Далее" class="btn btn-primary">
         </div>
     </div>
 </form>
 {% endblock %}
+
+{% if error_message %}<p class="error"><strong>{{ error_message }}</strong></p>{% endif %}
+            {% for choice in question.choice_set.all %}
+                <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
+                <label for="choice{{ forloop.counter }}">
+                <div class="row">
+                    <div class="column">
+                        <span class="circle"></span>
+                        <span class="text">
+                            {{ choice.choice_text }}
+                        </span>
+                    </div>
+                </div>
+                </label>
+            {% endfor %}
