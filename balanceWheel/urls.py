@@ -6,7 +6,7 @@ app_name = 'balanceWheel'
 
 urlpatterns = [
     # ex: /polls/
-    path('', views.IndexView.as_view(), name='index'),
+    path('', views.index, name='index'),
     # ex: /polls/1/
     path('<int:question_id>/', views.details, name='details'),
     # ex: /polls/results/

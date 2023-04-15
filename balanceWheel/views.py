@@ -6,17 +6,20 @@ from .services import get_overall_result, reset
 
 
 # generic views
-class IndexView(generic.ListView):
-    template_name = 'balanceWheel/index.html'
-    context_object_name = 'latest_question_list'
+# class IndexView(generic.ListView):
+#     template_name = 'balanceWheel/index.html'
+#     context_object_name = 'latest_question_list'
+#
+#     def get_queryset(self):
+#         return Question.objects.order_by('id')[:15]
 
-    def get_queryset(self):
-        return Question.objects.order_by('id')[:15]
 
-
-# def index(request):
-#     latest_question_list = Question.objects.order_by('-pub_date')[:5]
-#     return render(request, 'balanceWheel/index.html', {'latest_question_list': latest_question_list})
+def index(request):
+    param = request.GET.get("param")
+    if param == 'restart':
+        reset()
+    latest_question_list = Question.objects.order_by('id')[:15]
+    return render(request, 'balanceWheel/index.html', {'latest_question_list': latest_question_list})
 
 
 def details(request: HttpRequest, question_id: int) -> HttpResponse:
@@ -24,7 +27,6 @@ def details(request: HttpRequest, question_id: int) -> HttpResponse:
         question = Question.objects.get(pk=question_id)
     except Question.DoesNotExist:
         raise Http404('Вопрос не существует')
-
     return render(request, 'balanceWheel/details.html', {'question': question})
 
 
