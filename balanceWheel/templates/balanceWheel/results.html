@@ -1,0 +1,47 @@
+{% extends "balanceWheel/base.html" %}
+
+{% block title %}Chart wheel{% endblock title %}
+
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+{{ data|json_script:"jsonData" }}
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const jsonData = JSON.parse(document.getElementById('jsonData').textContent);
+    const labels = jsonData.map((item) => item.name);
+    const data = jsonData.map((item) => item.value);
+    const ctx = document.getElementById('chart');
+    new Chart(ctx, {
+        type: 'polarArea',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: '# Баллы',
+                data: data,
+                borderWidth: 2,
+
+            }]
+        },
+        options: {
+            ticks: {
+                min: 0,
+                max: 100,
+                stepSize: 10
+            },
+        }
+    });
+});
+</script>
+{% endblock scripts %}
+
+{% block content %}
+    <div class="card">
+        <div class="card-body border-primary">
+            <canvas id="chart" style="height: 400px; width: 400px" height="400", width="400"></canvas>
+        </div>
+        <div class="card-footer">
+            <a class="btn btn-primary" href="{% url 'wheel:index' %}?param=restart">Пройти колесо снова?</a>
+        </div>
+    </div>
+{% endblock content %}
+

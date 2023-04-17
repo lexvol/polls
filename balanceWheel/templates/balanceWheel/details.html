@@ -1,0 +1,32 @@
+{% extends "balanceWheel/base.html" %}
+
+{% block title %}BalanceWheel{% endblock title %}
+
+{% block content %}
+
+{# Display a form #}
+<form action="{% url 'wheel:vote' question.id %}" method="post" class="form">
+{% csrf_token %}
+    <div class="wrapper">
+        <header>{{ question.question_text }}</header>
+        <div class="poll-area">
+            {% if error_message %}<p class="error"><strong>{{ error_message }}</strong></p>{% endif %}
+            {% for choice in question.choice_set.all %}
+                <label for="choice{{ forloop.counter }}">
+                    <div class="row">
+                        <div class="column">
+                            <span>
+                                <input class="circle" type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
+                            </span>
+                            <span class="column">
+                                {{ choice.choice_text }}
+                            </span>
+                        </div>
+                    </div>
+                </label>
+            {% endfor %}
+            <input type="submit" value="Далее" class="btn btn-primary">
+        </div>
+    </div>
+</form>
+{% endblock %}

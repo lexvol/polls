@@ -1,0 +1,29 @@
+{% load static %}
+
+{# Load the tag library #}
+{% load bootstrap5 %}
+
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{# Display django.contrib.messages as Bootstrap alerts #}
+{% bootstrap_messages %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+</head>
+<body>
+    {% block scripts %}
+    {% endblock scripts %}
+    <div>
+        <h3><a class="logo link-logo" href="{% url 'wheel:index' %}">BalanceWheel</a></h3>
+        {% block content %}
+        {% endblock content%}
+    </div>
+</body>
+</html>
