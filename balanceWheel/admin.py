@@ -1,10 +1,16 @@
 from django.contrib import admin
-from .models import Question, Choice, Category, Subcategory
+
+from .models import Question, Choice, Category, Subcategory, Result
 
 
 class ChoiceInline(admin.StackedInline):
     model = Choice
     extra = 3
+
+
+@admin.register(Result)
+class ResultAdmin(admin.ModelAdmin):
+    list_display = ('user', 'result')
 
 
 @admin.register(Question)
@@ -16,9 +22,10 @@ class QuestionAdmin(admin.ModelAdmin):
     inlines = [ChoiceInline]
     list_display = ('question_text', 'category', 'subcategory')
 
+
 @admin.register(Choice)
 class ChoiceAdmin(admin.ModelAdmin):
-    list_display = ['id', 'question', 'choice_text', 'scores', 'vote']
+    list_display = ['id', 'question', 'choice_text', 'points', 'vote']
 
 
 @admin.register(Category)
