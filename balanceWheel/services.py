@@ -5,13 +5,13 @@ def get_overall_result():
     data = []
     subcategory = models.Subcategory.objects.all()
     for item in subcategory:
-        scores = 0
-        query = get_result_by_subcategory(item.id).all().values('scores')
+        result = 0
+        query = get_result_by_subcategory(item.id).all().values('points')
         for value in query:
-            scores += value['scores']
+            result += value['points']
         data.append({
             'name': item.subcategory_name,
-            'value': scores * 10  # percents
+            'value': result * 10  # percents
         })
     return data
 
