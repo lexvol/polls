@@ -65,7 +65,7 @@ class Choice(models.Model):
 
 
 class Result(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name='Пользователь')
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name='Пользователь')
     result = models.CharField(max_length=150, verbose_name='Результат теста')
 
     def __str__(self):
