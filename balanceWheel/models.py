@@ -1,3 +1,4 @@
+from django.contrib.auth import settings
 from django.db import models
 
 
@@ -52,7 +53,7 @@ class Question(models.Model):
 class Choice(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE, verbose_name='Вопрос')
     choice_text = models.CharField(max_length=200, verbose_name='Вариант ответа')
-    scores = models.FloatField(default=0.0, verbose_name='Баллы')
+    points = models.FloatField(default=0.0, verbose_name='Баллы')
     vote = models.BooleanField(verbose_name='Ответ', default=False, choices=TRUE_FALSE_CHOICES)
 
     def __str__(self):
@@ -61,3 +62,15 @@ class Choice(models.Model):
     class Meta:
         verbose_name = 'ответ'
         verbose_name_plural = 'ответ'
+
+
+class Result(models.Model):
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name='Пользователь')
+    result = models.CharField(max_length=150, verbose_name='Результат теста')
+
+    def __str__(self):
+        return self.result
+
+    class Meta:
+        verbose_name = 'результат'
+        verbose_name_plural = 'результаты'
