@@ -46,10 +46,11 @@ def vote(request: HttpRequest, question_id: int) -> HttpResponse:
                       'error_message': 'Вы не выбрали не один из вариантов ответа.'},
                       )
     else:
-        if question_id != len(Question.objects.all()):
-            selected_choice.vote = True
-            selected_choice.save()
-            question = Question.objects.get(pk=question_id + 1)
+        selected_choice.vote = True
+        selected_choice.save()
+        last_question = Question.objects.last()
+        if question_id != last_question.id:
+            question = Question.objects.get(pk=selected_choice.link_id or question_id + 1)
             return render(request, 'balanceWheel/details.html', {'question': question})
 
         response = render(request, 'balanceWheel/results.html', {'data': get_overall_result()})
