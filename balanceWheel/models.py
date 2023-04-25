@@ -7,6 +7,16 @@ TRUE_FALSE_CHOICES = (
         (False, 'Нет')
     )
 
+class Poll(models.Model):
+    poll_name = models.CharField(max_length=100, verbose_name='Название опроса')
+    poll_type = models.CharField(max_length=50, verbose_name='Тип опроса')
+
+    def __str__(self):
+        return self.poll_name
+
+    class Meta:
+        verbose_name = 'опрос'
+        verbose_name_plural = 'опросы'
 
 class Category(models.Model):
     category_name = models.CharField(max_length=30, verbose_name='Категория')
@@ -43,6 +53,12 @@ class Branch(models.Model):
 
 
 class Question(models.Model):
+    poll = models.ForeignKey(Poll,
+                                  null=True,
+                                  blank=True,
+                                  related_name='poll',
+                                  on_delete=models.CASCADE,
+                                  verbose_name='Название теста')
     question_text = models.CharField(max_length=200, verbose_name='Вопрос')
     branch = models.ForeignKey(Branch,
                                null=True,
