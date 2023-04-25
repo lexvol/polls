@@ -30,8 +30,26 @@ class Subcategory(models.Model):
         verbose_name_plural = 'подкатегории'
 
 
+class Branch(models.Model):
+    # question = models.ForeignKey(Question, on_delete=models.CASCADE, verbose_name='Вопрос')
+    branch_name = models.CharField(max_length=100, verbose_name='Имя ветка')
+
+    def __str__(self):
+        return self.branch_name
+
+    class Meta:
+        verbose_name = 'ветка'
+        verbose_name_plural = 'ветки'
+
+
 class Question(models.Model):
     question_text = models.CharField(max_length=200, verbose_name='Вопрос')
+    branch = models.ForeignKey(Branch,
+                               null=True,
+                               blank=True,
+                               related_name='branch',
+                               on_delete=models.CASCADE,
+                               verbose_name='Ветка')
     category = models.ForeignKey(Category,
                                  related_name='categoty_name',
                                  on_delete=models.CASCADE,
@@ -51,10 +69,20 @@ class Question(models.Model):
 
 
 class Choice(models.Model):
-    question = models.ForeignKey(Question, on_delete=models.CASCADE, verbose_name='Вопрос')
+    question = models.ForeignKey(Question,
+                                 on_delete=models.CASCADE,
+                                 verbose_name='Вопрос')
     choice_text = models.CharField(max_length=200, verbose_name='Вариант ответа')
     points = models.FloatField(default=0.0, verbose_name='Баллы')
-    vote = models.BooleanField(verbose_name='Ответ', default=False, choices=TRUE_FALSE_CHOICES)
+    value = models.BooleanField(null=True, blank=True, default=None, verbose_name='Значение')
+    link = models.ForeignKey(Question,
+                             related_name='link',
+                             null=True,
+                             blank=True,
+                             default=None,
+                             on_delete=models.SET_NULL,
+                             verbose_name='Переход')
+    vote = models.BooleanField(default=False, choices=TRUE_FALSE_CHOICES, verbose_name='Ответ')
 
     def __str__(self):
         return self.choice_text

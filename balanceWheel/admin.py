@@ -1,9 +1,10 @@
 from django.contrib import admin
 
-from .models import Question, Choice, Category, Subcategory, Result
+from .models import Question, Choice, Category, Subcategory, Result, Branch
 
 
 class ChoiceInline(admin.StackedInline):
+    fk_name = 'question'
     model = Choice
     extra = 3
 
@@ -17,15 +18,21 @@ class ResultAdmin(admin.ModelAdmin):
 class QuestionAdmin(admin.ModelAdmin):
     fieldsets = [
         (None, {'fields': ['question_text']}),
+        ('Ветка', {'fields': ['branch']}),
         ('Категории', {'fields': ['category', 'subcategory']}),
     ]
     inlines = [ChoiceInline]
-    list_display = ('question_text', 'category', 'subcategory')
+    list_display = ('id', 'question_text', 'branch', 'category', 'subcategory')
+
+
+@admin.register(Branch)
+class BranchAdmin(admin.ModelAdmin):
+    list_display = ('id', 'branch_name',)
 
 
 @admin.register(Choice)
 class ChoiceAdmin(admin.ModelAdmin):
-    list_display = ['id', 'question', 'choice_text', 'points', 'vote']
+    list_display = ['id', 'question', 'choice_text', 'points', 'value', 'link', 'vote']
 
 
 @admin.register(Category)
@@ -34,5 +41,5 @@ class CategoryAdmin(admin.ModelAdmin):
 
 
 @admin.register(Subcategory)
-class Subcategory(admin.ModelAdmin):
+class SubcategoryAdmin(admin.ModelAdmin):
     list_display = ['id', 'subcategory_name']
