@@ -8,8 +8,9 @@
 <script>
 document.addEventListener("DOMContentLoaded", function () {
     const jsonData = JSON.parse(document.getElementById('jsonData').textContent);
-    const labels = jsonData.map((item) => item.name);
-    const data = jsonData.map((item) => item.value);
+    const labels = [];
+    const data = [];
+    Object.entries(jsonData).map(([k,v]) => {labels.push(k); data.push(v);});
     const ctx = document.getElementById('chart');
     new Chart(ctx, {
         type: 'polarArea',
@@ -25,8 +26,8 @@ document.addEventListener("DOMContentLoaded", function () {
         options: {
             ticks: {
                 min: 0,
-                max: 100,
-                stepSize: 10
+                max: 10,
+                stepSize: 1,
             },
         }
     });

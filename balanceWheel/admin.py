@@ -8,6 +8,7 @@ class ChoiceInline(admin.StackedInline):
     model = Choice
     extra = 3
 
+
 @admin.register(Poll)
 class PollAdmin(admin.ModelAdmin):
     list_filter = ('poll_name', 'poll_type')
@@ -28,6 +29,7 @@ class QuestionAdmin(admin.ModelAdmin):
     ]
     inlines = [ChoiceInline]
     list_display = ('id', 'poll', 'question_text', 'branch', 'category', 'subcategory')
+    list_filter = ('poll', 'category', 'subcategory')
 
 
 @admin.register(Branch)
